@@ -764,150 +764,227 @@
 
 
 <!-- CTA -->
+<!-- ===== VANNIANWEB - GỬI YÊU CẦU ===== -->
 
-   <!-- ============================= -->
-<!--  GỬI YÊU CẦU HỖ TRỢ CHO VANNIAN -->
-<!-- ============================= -->
+<div class="vannian-request">
 
-<section id="lien-he">
+    <h2>🔥 GỬI YÊU CẦU CHO VANNIAN</h2>
 
-    <div class="container">
+    <p>
+        Chọn tựa game, thiết bị và nhập nội dung bạn cần hỗ trợ.
+    </p>
 
-        <div class="request-box">
+    <form id="vannianForm">
 
-            <div class="request-title">
+        <label>🎮 Tựa game</label>
 
-                <small>REQUEST CENTER</small>
-
-                <h2>🔥 GỬI YÊU CẦU CHO VANNIAN</h2>
-
-                <p>
-                    Bạn đang cần tìm game, phần mềm hoặc gặp lỗi?
-                    Hãy điền thông tin bên dưới, VANNIAN sẽ xem
-                    và phản hồi cho bạn.
-                </p>
-
-            </div>
+        <select id="game" required>
+            <option value="">-- Chọn tựa game --</option>
+            <option value="Free Fire">🔥 Free Fire</option>
+            <option value="PUBG">🔫 PUBG</option>
+            <option value="Liên Quân Mobile">⚔️ Liên Quân Mobile</option>
+        </select>
 
 
-            <!-- FORM -->
+        <label>📱 Thiết bị</label>
 
-            <form id="requestForm">
-
-
-                <!-- TÊN GAME -->
-
-                <div class="form-group">
-
-                    <label>
-                        🎮 Tên game / phần mềm
-                    </label>
-
-                    <input
-                        type="text"
-                        id="gameName"
-                        placeholder="Ví dụ: Minecraft, GTA V..."
-                        required
-                    >
-
-                </div>
+        <select id="device" required>
+            <option value="">-- Chọn thiết bị --</option>
+            <option value="Android">🤖 Android</option>
+            <option value="iPhone (iOS)">🍎 iPhone (iOS)</option>
+            <option value="iPad (iOS)">📱 iPad (iOS)</option>
+        </select>
 
 
-                <!-- THIẾT BỊ -->
+        <label>📝 Nội dung yêu cầu</label>
 
-                <div class="form-group">
-
-                    <label>
-                        💻 Thiết bị
-                    </label>
-
-                    <select id="device" required>
-
-                        <option value="">
-                            -- Chọn thiết bị --
-                        </option>
-                
+        <textarea
+            id="content"
+            placeholder="Nhập yêu cầu của bạn..."
+            required
+        ></textarea>
 
 
-                        <option value="Android">
-                            📱 Android
-                        </option>
+        <button type="submit">
+            🚀 GỬI YÊU CẦU → TELEGRAM
+        </button>
 
-                        <option value="iPhone / iPad">
-                            🍎 iPhone / iPad
-                        </option>
+    </form>
 
-                        <option value="Console">
-                            🎮 Console
-                        </option>
-
-                        <option value="Khác">
-                            ⚙️ Khác
-                        </option>
-
-                    </select>
-
-                </div>
+</div>
 
 
-                <!-- NỘI DUNG -->
+<style>
 
-                <div class="form-group">
+.vannian-request {
+    max-width: 700px;
+    margin: 30px auto;
+    padding: 30px 22px;
 
-                    <label>
-                        📝 Nội dung yêu cầu
-                    </label>
+    background: #050b12;
 
-                    <textarea
-                        id="requestContent"
-                        rows="5"
-                        placeholder="Hãy mô tả game, file hoặc lỗi bạn đang gặp..."
-                        required
-                    ></textarea>
+    border: 1px solid #123b5c;
+    border-radius: 18px;
 
-                </div>
+    box-shadow:
+        0 10px 40px rgba(0,0,0,0.35);
+
+    color: white;
+}
+
+.vannian-request h2 {
+    text-align: center;
+
+    margin-bottom: 10px;
+
+    color: #ffffff;
+}
+
+.vannian-request > p {
+    text-align: center;
+
+    color: #8da4b7;
+
+    margin-bottom: 25px;
+}
+
+.vannian-request label {
+    display: block;
+
+    margin:
+        15px 0 8px;
+
+    color: #dcecff;
+
+    font-weight: bold;
+}
+
+.vannian-request select,
+.vannian-request textarea {
+
+    width: 100%;
+
+    padding: 14px;
+
+    background: #02070c;
+
+    color: white;
+
+    border: 1px solid #16486d;
+
+    border-radius: 10px;
+
+    font-size: 15px;
+
+    outline: none;
+}
+
+.vannian-request select:focus,
+.vannian-request textarea:focus {
+
+    border-color: #008cff;
+
+    box-shadow:
+        0 0 12px rgba(0,140,255,0.25);
+}
+
+.vannian-request textarea {
+
+    min-height: 130px;
+
+    resize: vertical;
+
+}
+
+.vannian-request button {
+
+    width: 100%;
+
+    margin-top: 22px;
+
+    padding: 16px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #0077ff,
+            #00aaff
+        );
+
+    color: white;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.25s;
+
+}
+
+.vannian-request button:hover {
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 8px 25px
+        rgba(0,140,255,0.35);
+
+}
+
+</style>
 
 
-                <!-- TELEGRAM -->
+<script>
 
-                <div class="form-group">
+document
+    .getElementById("vannianForm")
+    .addEventListener("submit", function(e) {
 
-                    <label>
-                        ✈️ Telegram: @vanNianz
-                    </label>
+        e.preventDefault();
 
-                    <input
-                        type="text"
-                        id="customerTelegram"
-                        placeholder="@username của bạn (không bắt buộc)"
-                    >
+        const game =
+            document.getElementById("game").value;
 
-                </div>
+        const device =
+            document.getElementById("device").value;
 
-
-                <!-- BUTTON -->
-
-                <button
-                    type="submit"
-                    class="request-button"
-                >
-                    🚀 GỬI YÊU CẦU → TELEGRAM
-                </button>
+        const content =
+            document.getElementById("content").value.trim();
 
 
-                <p class="form-note">
-                    🔒 Thông tin chỉ được sử dụng để phản hồi yêu cầu.
-                </p>
+        const message =
+`🔥 YÊU CẦU MỚI - VANNIANWEB
 
-            </form>
+🎮 Tựa game:
+${game}
 
-        </div>
+📱 Thiết bị:
+${device}
 
-    </div>
+📝 Nội dung yêu cầu:
+${content}
 
-</section>
+━━━━━━━━━━━━━━━━
+🖤 VANNIANWEB
+💙 Uy Tín Tạo Niềm Tin!`;
 
 
+        const telegramURL =
+            "https://t.me/vanNianz?text=" +
+            encodeURIComponent(message);
+
+
+        window.location.href = telegramURL;
+
+    });
+
+</script>
 <!-- ============================= -->
 <!-- CSS -->
 <!-- ============================= -->
