@@ -1393,5 +1393,26 @@ Uy Tín Tạo Niềm Tin!`;
     </div>
 
 </section>
+  
+<audio id="bgMusic" autoplay loop playsinline preload="auto">
+  <source src="https://vannianweb.github.io/Site/music.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+(function () {
+  const music = document.getElementById("bgMusic");
+  if (!music) return;
+
+  music.volume = 0.7;
+
+  function playMusic() {
+    music.play().catch(function (error) {
+      console.log("Trình duyệt chưa cho phép tự phát nhạc:", error);
+    });
+  }
+
+  window.addEventListener("load", playMusic);
+})();
+</script>
     </body>
 </html>
