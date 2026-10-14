@@ -1381,15 +1381,20 @@ Uy Tín Tạo Niềm Tin!`;
 <script>
 const music = document.getElementById("bgMusic");
 const btn = document.getElementById("musicBtn");
-  window.addEventListener("load", function () {
-  music.muted = true;
+  window.addEventListener("load", async function () {
+  try {
+    music.muted = true;
+    await music.play();
 
-  music.play().then(function () {
-    music.muted = false;
     btn.textContent = "🎵 TẮT NHẠC";
-  }).catch(function () {
+
+    music.muted = false;
+  } catch (error) {
+    music.pause();
+    music.muted = false;
     btn.textContent = "🎵 BẬT NHẠC";
-  });
+    console.log("Không thể tự phát nhạc:", error);
+  }
 });
 music.addEventListener("play", function () {
   btn.textContent = "🎵 TẮT NHẠC";
