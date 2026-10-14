@@ -1380,12 +1380,28 @@ Uy Tín Tạo Niềm Tin!`;
 
 <script>
 const music = document.getElementById("bgMusic");
-const btn = window.addEventListener("load", function () {
+const btn = document.getElementById("musicBtn");
+    window.addEventListener("load", function () {
   music.play().then(function () {
     btn.textContent = "🎵 TẮT NHẠC";
   }).catch(function () {
     btn.textContent = "🎵 BẬT NHẠC";
   });
 });
+
+btn.addEventListener("click", async function () {
+  try {
+    if (music.paused) {
+      await music.play();
+      btn.textContent = "🎵 TẮT NHẠC";
+    } else {
+      music.pause();
+      btn.textContent = "🎵 BẬT NHẠC";
+    }
+  } catch (e) {
+    alert("Không phát được nhạc: " + e.message);
+  }
+});
+</script>
     </body>
 </html>
