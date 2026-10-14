@@ -1382,13 +1382,15 @@ Uy Tín Tạo Niềm Tin!`;
 const music = document.getElementById("bgMusic");
 const btn = document.getElementById("musicBtn");
   window.addEventListener("load", function () {
+  music.muted = true;
+
   music.play().then(function () {
+    music.muted = false;
     btn.textContent = "🎵 TẮT NHẠC";
   }).catch(function () {
     btn.textContent = "🎵 BẬT NHẠC";
   });
 });
-
 music.addEventListener("play", function () {
   btn.textContent = "🎵 TẮT NHẠC";
 });
