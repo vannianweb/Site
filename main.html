@@ -1381,12 +1381,20 @@ Uy Tín Tạo Niềm Tin!`;
 <script>
 const music = document.getElementById("bgMusic");
 const btn = document.getElementById("musicBtn");
-    window.addEventListener("load", function () {
+  window.addEventListener("load", function () {
   music.play().then(function () {
     btn.textContent = "🎵 TẮT NHẠC";
   }).catch(function () {
     btn.textContent = "🎵 BẬT NHẠC";
   });
+});
+
+music.addEventListener("play", function () {
+  btn.textContent = "🎵 TẮT NHẠC";
+});
+
+music.addEventListener("pause", function () {
+  btn.textContent = "🎵 BẬT NHẠC";
 });
 
 btn.addEventListener("click", async function () {
