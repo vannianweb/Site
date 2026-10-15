@@ -1412,27 +1412,26 @@ Uy Tín Tạo Niềm Tin!`;
             : "🎵 TẮT NHẠC";
     }
 
-    // Đồng bộ nút với trạng thái phát nhạc
     music.addEventListener("play", updateButton);
     music.addEventListener("pause", updateButton);
     music.addEventListener("ended", updateButton);
 
-    // Bấm nút để bật hoặc tắt nhạc
+    // Bật hoặc tắt nhạc bằng nút
     btn.addEventListener("click", async function () {
-        try {
-            if (music.paused) {
+        if (music.paused) {
+            try {
                 await music.play();
-            } else {
-                music.pause();
+            } catch (error) {
+                alert("Không phát được nhạc. Hãy kiểm tra kết nối mạng và file music.mp3.");
             }
-        } catch (error) {
-            console.error("Không thể phát nhạc:", error);
+        } else {
+            music.pause();
         }
 
         updateButton();
     });
 
-    // Thử tự phát nếu người dùng vừa nhấn Khám Phá SHOP
+    // Thử tự phát khi vừa bấm Khám Phá SHOP
     window.addEventListener("load", async function () {
         let shouldPlay = false;
 
@@ -1449,7 +1448,9 @@ Uy Tín Tạo Niềm Tin!`;
             try {
                 await music.play();
             } catch (error) {
-                console.log("Trình duyệt không cho phép tự phát nhạc.");
+                console.log(
+                    "Trình duyệt chặn tự phát nhạc. Hãy bấm nút BẬT NHẠC."
+                );
             }
         }
 
@@ -1457,7 +1458,5 @@ Uy Tín Tạo Niềm Tin!`;
     });
 })();
 </script>
-
-    
-    </body>
+</body>
 </html>
