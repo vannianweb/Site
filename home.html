@@ -206,15 +206,20 @@
     </main>
 
 <script>
-document.getElementById("exploreShop").addEventListener("click", function () {
-    try {
-        sessionStorage.setItem("playMusicOnMain", "true");
-    } catch (error) {
-        console.log("Không thể lưu trạng thái chuyển trang.");
-    }
+document.addEventListener("DOMContentLoaded", function () {
+    const exploreShop = document.getElementById("exploreShop");
+
+    if (!exploreShop) return;
+
+    exploreShop.addEventListener("click", function () {
+        try {
+            sessionStorage.setItem("playMusicOnMain", "true");
+        } catch (error) {
+            console.log("Không thể lưu trạng thái chuyển trang.");
+        }
+    });
 });
 </script>
     
 </body>
-
 </html>
