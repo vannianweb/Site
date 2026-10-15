@@ -1379,44 +1379,63 @@ Uy Tín Tạo Niềm Tin!`;
 </button>
 
 <script>
-const music = document.getElementById("bgMusic");
-const btn = document.getElementById("musicBtn");
-  window.addEventListener("load", async function () {
-  try {
-    music.muted = true;
-    await music.play();
+    document.getElementById("requestForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+        const gameName = document.getElementById("gameName").value.trim();
+        const device = document.getElementById("device").value;
+        const requestContent = document.getElementById("requestContent").value.trim();
 
-    btn.textContent = "🎵 TẮT NHẠC";
+        let message = `🔥 YÊU CẦU HỖ TRỢ VANNIAN\n\n🎮 Game / Phần mềm:\n${gameName}\n\n💻 Thiết bị:\n${device}\n\n📝 Nội dung:\n${requestContent}\n\n━━━━━━━━━━━━━━\nVANNIANWEB`;
 
-    music.muted = false;
-  } catch (error) {
-    music.pause();
-    music.muted = false;
-    btn.textContent = "🎵 BẬT NHẠC";
-    console.log("Không thể tự phát nhạc:", error);
-  }
-});
-music.addEventListener("play", function () {
-  btn.textContent = "🎵 TẮT NHẠC";
-});
+        const telegramURL = `https://t.me/vanNianz?text=` + encodeURIComponent(message);
+        window.location.href = telegramURL;
+    });
 
-music.addEventListener("pause", function () {
-  btn.textContent = "🎵 BẬT NHẠC";
-});
+    // Xử lý nhạc nền (Tự động phát không tiếng và bật tiếng ngay khi user chạm vào web)
+    const music = document.getElementById("bgMusic");
+    const btn = document.getElementById("musicBtn");
+    
+    window.addEventListener("load", async function () {
+        try {
+            music.muted = true;
+            await music.play();
+            btn.textContent = "🎵 TẮT NHẠC";
+            music.muted = false;
+        } catch (error) {
+            music.pause();
+            music.muted = false;
+            btn.textContent = "🎵 BẬT NHẠC";
+        }
+    });
 
-btn.addEventListener("click", async function () {
-  try {
-    if (music.paused) {
-      await music.play();
-      btn.textContent = "🎵 TẮT NHẠC";
-    } else {
-      music.pause();
-      btn.textContent = "🎵 BẬT NHẠC";
-    }
-  } catch (e) {
-    alert("Không phát được nhạc: " + e.message);
-  }
-});
+    // Tự động bật tiếng khi người dùng click/chạm vào bất kỳ đâu lần đầu tiên trên web
+    document.body.addEventListener('click', function() {
+        if (music.paused) {
+            music.play().then(() => {
+                btn.textContent = "🎵 TẮT NHẠC";
+            }).catch(e => console.log(e));
+        } else if (music.muted) {
+            music.muted = false;
+            btn.textContent = "🎵 TẮT NHẠC";
+        }
+    }, { once: true });
+
+    btn.addEventListener("click", async function (e) {
+        e.stopPropagation(); // Ngăn không cho sự kiện click lan ra body
+        try {
+            if (music.paused) {
+                music.muted = false;
+                await music.play();
+                btn.textContent = "🎵 TẮT NHẠC";
+            } else {
+                music.pause();
+                btn.textContent = "🎵 BẬT NHẠC";
+            }
+        } catch (e) {
+            alert("Không phát được nhạc: " + e.message);
+        }
+    });
 </script>
+
     </body>
 </html>
