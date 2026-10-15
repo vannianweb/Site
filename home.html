@@ -204,14 +204,13 @@
         </div>
 
     </main>
-
 <script>
 document.addEventListener("DOMContentLoaded", function () {
-    const exploreShop = document.getElementById("exploreShop");
+    const btn = document.getElementById("exploreShop");
 
-    if (!exploreShop) return;
+    if (!btn) return;
 
-    exploreShop.addEventListener("click", function () {
+    btn.addEventListener("click", function () {
         try {
             sessionStorage.setItem("playMusicOnMain", "true");
         } catch (error) {
@@ -220,6 +219,5 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 </script>
-    
 </body>
 </html>
