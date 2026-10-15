@@ -1369,16 +1369,8 @@ Uy Tín Tạo Niềm Tin!`;
 
 </section>
   
-<audio id="bgMusic" loop playsinline>
-  <source src="https://vannianweb.github.io/Site/music.mp3" type="audio/mpeg">
-</audio>
-
-<button id="musicBtn"
-  style="position:fixed;bottom:20px;right:20px;z-index:99999;padding:14px;background:#168cff;color:white;border:0;border-radius:30px;">
-  🎵 BẬT NHẠC
-</button>
-
 <script>
+    // 1. Xử lý form gửi yêu cầu
     document.getElementById("requestForm").addEventListener("submit", function(event) {
         event.preventDefault();
         const gameName = document.getElementById("gameName").value.trim();
@@ -1391,48 +1383,34 @@ Uy Tín Tạo Niềm Tin!`;
         window.location.href = telegramURL;
     });
 
-    // Xử lý nhạc nền (Tự động phát không tiếng và bật tiếng ngay khi user chạm vào web)
+    // 2. Xử lý nhạc nền (Tự động phát ngầm khi vào web)
     const music = document.getElementById("bgMusic");
     const btn = document.getElementById("musicBtn");
     
-    window.addEventListener("load", async function () {
-        try {
-            music.muted = true;
-            await music.play();
-            btn.textContent = "🎵 TẮT NHẠC";
-            music.muted = false;
-        } catch (error) {
-            music.pause();
-            music.muted = false;
+    window.addEventListener("DOMContentLoaded", function () {
+        music.muted = true;
+        music.play().then(() => {
+            btn.textContent = "🎵 BẬT TIẾNG";
+        }).catch(() => {
             btn.textContent = "🎵 BẬT NHẠC";
-        }
+        });
     });
 
-    // Tự động bật tiếng khi người dùng click/chạm vào bất kỳ đâu lần đầu tiên trên web
-    document.body.addEventListener('click', function() {
+    // 3. Xử lý nút Bật/Tắt nhạc
+    btn.addEventListener("click", function () {
         if (music.paused) {
             music.play().then(() => {
+                music.muted = false;
                 btn.textContent = "🎵 TẮT NHẠC";
-            }).catch(e => console.log(e));
+            }).catch(e => {
+                alert("Hãy chạm vào màn hình thêm 1 lần nữa để phát nhạc nhé!");
+            });
         } else if (music.muted) {
             music.muted = false;
             btn.textContent = "🎵 TẮT NHẠC";
-        }
-    }, { once: true });
-
-    btn.addEventListener("click", async function (e) {
-        e.stopPropagation(); // Ngăn không cho sự kiện click lan ra body
-        try {
-            if (music.paused) {
-                music.muted = false;
-                await music.play();
-                btn.textContent = "🎵 TẮT NHẠC";
-            } else {
-                music.pause();
-                btn.textContent = "🎵 BẬT NHẠC";
-            }
-        } catch (e) {
-            alert("Không phát được nhạc: " + e.message);
+        } else {
+            music.pause();
+            btn.textContent = "🎵 BẬT NHẠC";
         }
     });
 </script>
