@@ -1383,37 +1383,28 @@ Uy Tín Tạo Niềm Tin!`;
         window.location.href = telegramURL;
     });
 
-    // 2. Xử lý nhạc nền (Tự động phát ngầm khi vào web)
+    // 2. Xử lý nút Bật/Tắt nhạc (An toàn 100% không bị trình duyệt chặn)
     const music = document.getElementById("bgMusic");
     const btn = document.getElementById("musicBtn");
     
-    window.addEventListener("DOMContentLoaded", function () {
-        music.muted = true;
-        music.play().then(() => {
-            btn.textContent = "🎵 BẬT TIẾNG";
-        }).catch(() => {
-            btn.textContent = "🎵 BẬT NHẠC";
-        });
-    });
+    // Đảm bảo bật sẵn âm lượng cho audio
+    music.volume = 1.0;
 
-    // 3. Xử lý nút Bật/Tắt nhạc
     btn.addEventListener("click", function () {
         if (music.paused) {
             music.play().then(() => {
-                music.muted = false;
                 btn.textContent = "🎵 TẮT NHẠC";
-            }).catch(e => {
-                alert("Hãy chạm vào màn hình thêm 1 lần nữa để phát nhạc nhé!");
+            }).catch(error => {
+                console.log("Lỗi phát nhạc:", error);
+                alert("Không thể phát nhạc. Hãy kiểm tra lại đường dẫn file nhạc hoặc kết nối mạng!");
             });
-        } else if (music.muted) {
-            music.muted = false;
-            btn.textContent = "🎵 TẮT NHẠC";
         } else {
             music.pause();
             btn.textContent = "🎵 BẬT NHẠC";
         }
     });
 </script>
+
 
     </body>
 </html>
