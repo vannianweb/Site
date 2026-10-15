@@ -1370,32 +1370,34 @@ Uy Tín Tạo Niềm Tin!`;
 </section>
   
 <!-- VANNIANWEB MUSIC PLAYER -->
+<!-- VANNIANWEB MUSIC PLAYER -->
 <audio id="bgMusic" loop playsinline preload="auto">
     <source
         src="https://vannianweb.github.io/Site/music.mp3"
         type="audio/mpeg">
 </audio>
 
-<button
-    id="musicBtn"
-    type="button"
-    style="
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        z-index: 99999;
-        padding: 14px 20px;
-        background: #168cff;
-        color: white;
-        border: none;
-        border-radius: 30px;
-        font-size: 15px;
-        font-weight: bold;
-        cursor: pointer;
-        box-shadow: 0 5px 25px #168cff55;
-    ">
+<button id="musicBtn" type="button">
     🎵 BẬT NHẠC
 </button>
+
+<style>
+#musicBtn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 99999;
+    padding: 14px 20px;
+    background: #168cff;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 5px 25px #168cff55;
+}
+</style>
 
 <script>
 (function () {
@@ -1404,7 +1406,35 @@ Uy Tín Tạo Niềm Tin!`;
 
     if (!music || !btn) return;
 
+    const POSITION_KEY = "vannianMusicPosition";
+    const PLAY_KEY = "vannianMusicWanted";
+    const NAV_KEY = "playMusicOnMain";
+
     music.volume = 0.7;
+
+    let savedPosition = 0;
+    let shouldTryPlay = false;
+    let positionRestored = false;
+
+    // Đọc trạng thái và vị trí nghe trước đó
+    try {
+        savedPosition = parseFloat(
+            localStorage.getItem(POSITION_KEY) || "0"
+        );
+
+        const requestedFromHome =
+            sessionStorage.getItem(NAV_KEY) === "true";
+
+        const wantedPreviously =
+            localStorage.getItem(PLAY_KEY) === "true";
+
+        shouldTryPlay = requestedFromHome || wantedPreviously;
+
+        // Đã đọc yêu cầu chuyển trang
+        sessionStorage.removeItem(NAV_KEY);
+    } catch (error) {
+        console.log("Không đọc được dữ liệu nhạc đã lưu.");
+    }
 
     function updateButton() {
         btn.textContent = music.paused
@@ -1412,50 +1442,119 @@ Uy Tín Tạo Niềm Tin!`;
             : "🎵 TẮT NHẠC";
     }
 
+    // Khôi phục vị trí nghe khi trình duyệt tải được metadata
+    music.addEventListener("loadedmetadata", function () {
+        if (positionRestored) return;
+
+        positionRestored = true;
+
+        if (
+            Number.isFinite(savedPosition) &&
+            savedPosition > 0 &&
+            Number.isFinite(music.duration) &&
+            savedPosition < music.duration
+        ) {
+            music.currentTime = savedPosition;
+        }
+    });
+
+    // Lưu vị trí nghe gần nhất
+    function savePosition() {
+        if (!Number.isFinite(music.currentTime)) return;
+
+        try {
+            localStorage.setItem(
+                POSITION_KEY,
+                String(music.currentTime)
+            );
+        } catch (error) {
+            console.log("Không lưu được vị trí nghe.");
+        }
+    }
+
+    music.addEventListener("timeupdate", savePosition);
+    music.addEventListener("pause", savePosition);
+    music.addEventListener("ended", function () {
+        try {
+            localStorage.setItem(POSITION_KEY, "0");
+        } catch (error) {}
+
+        updateButton();
+    });
+
     music.addEventListener("play", updateButton);
     music.addEventListener("pause", updateButton);
-    music.addEventListener("ended", updateButton);
 
-    // Bật hoặc tắt nhạc bằng nút
+    // Nút bật/tắt nhạc thủ công
     btn.addEventListener("click", async function () {
         if (music.paused) {
             try {
                 await music.play();
+
+                try {
+                    localStorage.setItem(PLAY_KEY, "true");
+                } catch (error) {}
             } catch (error) {
-                alert("Không phát được nhạc. Hãy kiểm tra kết nối mạng và file music.mp3.");
+                alert(
+                    "Chưa phát được nhạc. Hãy kiểm tra kết nối mạng hoặc file music.mp3."
+                );
             }
         } else {
             music.pause();
+
+            try {
+                localStorage.setItem(PLAY_KEY, "false");
+            } catch (error) {}
         }
 
         updateButton();
     });
 
-    // Thử tự phát khi vừa bấm Khám Phá SHOP
-    window.addEventListener("load", async function () {
-        let shouldPlay = false;
+    // Thử tự phát khi mở main.html
+    async function tryAutoPlay() {
+        if (!shouldTryPlay) {
+            updateButton();
+            return;
+        }
 
         try {
-            shouldPlay =
-                sessionStorage.getItem("playMusicOnMain") === "true";
+            await music.play();
 
-            sessionStorage.removeItem("playMusicOnMain");
-        } catch (error) {
-            console.log("Không đọc được trạng thái chuyển trang.");
-        }
-
-        if (shouldPlay) {
             try {
-                await music.play();
-            } catch (error) {
-                console.log(
-                    "Trình duyệt chặn tự phát nhạc. Hãy bấm nút BẬT NHẠC."
-                );
-            }
+                localStorage.setItem(PLAY_KEY, "true");
+            } catch (error) {}
+        } catch (error) {
+            console.log(
+                "Trình duyệt chặn tự phát. Hãy bấm nút BẬT NHẠC."
+            );
         }
 
         updateButton();
-    });
+    }
+
+    if (music.readyState >= 1) {
+        if (
+            Number.isFinite(savedPosition) &&
+            savedPosition > 0 &&
+            savedPosition < music.duration
+        ) {
+            music.currentTime = savedPosition;
+            positionRestored = true;
+        }
+
+        tryAutoPlay();
+    } else {
+        music.addEventListener(
+            "loadedmetadata",
+            tryAutoPlay,
+            { once: true }
+        );
+    }
+
+    // Lưu vị trí khi rời trang
+    window.addEventListener("pagehide", savePosition);
+
+    updateButton();
 })();
 </script>
 </body>
