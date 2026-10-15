@@ -1369,57 +1369,93 @@ Uy Tín Tạo Niềm Tin!`;
 
 </section>
   
-<audio id="bgMusic" loop playsinline>
-  <source src="music.mp3" type="audio/mpeg">
+<!-- VANNIANWEB MUSIC PLAYER -->
+<audio id="bgMusic" loop playsinline preload="auto">
+    <source
+        src="https://vannianweb.github.io/Site/music.mp3"
+        type="audio/mpeg">
 </audio>
 
-    <!-- Nút bật tắt nhạc ở góc màn hình -->
-<button id="musicBtn" style="position:fixed; bottom:20px; right:20px; z-index:99999; padding:12px 20px; background:#0077ff; color:white; border:0; border-radius:30px; cursor:pointer; font-weight:bold;">
-  🎵 BẬT NHẠC
+<button
+    id="musicBtn"
+    type="button"
+    style="
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        z-index: 99999;
+        padding: 14px 20px;
+        background: #168cff;
+        color: white;
+        border: none;
+        border-radius: 30px;
+        font-size: 15px;
+        font-weight: bold;
+        cursor: pointer;
+        box-shadow: 0 5px 25px #168cff55;
+    ">
+    🎵 BẬT NHẠC
 </button>
 
 <script>
-    // 1. Xử lý form gửi yêu cầu
-    document.getElementById("requestForm").addEventListener("submit", function(event) {
-        event.preventDefault();
-        const gameName = document.getElementById("gameName").value.trim();
-        const device = document.getElementById("device").value;
-        const requestContent = document.getElementById("requestContent").value.trim();
-
-        let message = `🔥 YÊU CẦU HỖ TRỢ VANNIAN\n\n🎮 Game / Phần mềm:\n${gameName}\n\n💻 Thiết bị:\n${device}\n\n📝 Nội dung:\n${requestContent}\n\n━━━━━━━━━━━━━━\nVANNIANWEB`;
-
-        const telegramURL = `https://t.me/vanNianz?text=` + encodeURIComponent(message);
-        window.location.href = telegramURL;
-    });
-
-    // 2. Xử lý tự động phát nhạc khi chuyển từ home.html sang main.html
+(function () {
     const music = document.getElementById("bgMusic");
     const btn = document.getElementById("musicBtn");
-    
-    // Kiểm tra xem trên URL có chữ ?play=true hay không
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get('play') === 'true') {
-        music.volume = 1.0;
-        music.play().then(() => {
-            if(btn) btn.textContent = "🎵 TẮT NHẠC";
-        }).catch(e => console.log("Trình duyệt chặn tự động phát:", e));
+
+    if (!music || !btn) return;
+
+    music.volume = 0.7;
+
+    function updateButton() {
+        btn.textContent = music.paused
+            ? "🎵 BẬT NHẠC"
+            : "🎵 TẮT NHẠC";
     }
 
-    // 3. Xử lý nút bật/tắt nhạc thủ công ở góc màn hình
-    if (btn) {
-        btn.addEventListener("click", function () {
+    // Đồng bộ nút với trạng thái phát nhạc
+    music.addEventListener("play", updateButton);
+    music.addEventListener("pause", updateButton);
+    music.addEventListener("ended", updateButton);
+
+    // Bấm nút để bật hoặc tắt nhạc
+    btn.addEventListener("click", async function () {
+        try {
             if (music.paused) {
-                music.play().then(() => {
-                    btn.textContent = "🎵 TẮT NHẠC";
-                }).catch(error => {
-                    alert("Không thể phát nhạc. Hãy kiểm tra lại file nhạc!");
-                });
+                await music.play();
             } else {
                 music.pause();
-                btn.textContent = "🎵 BẬT NHẠC";
             }
-        });
-    }
+        } catch (error) {
+            console.error("Không thể phát nhạc:", error);
+        }
+
+        updateButton();
+    });
+
+    // Thử tự phát nếu người dùng vừa nhấn Khám Phá SHOP
+    window.addEventListener("load", async function () {
+        let shouldPlay = false;
+
+        try {
+            shouldPlay =
+                sessionStorage.getItem("playMusicOnMain") === "true";
+
+            sessionStorage.removeItem("playMusicOnMain");
+        } catch (error) {
+            console.log("Không đọc được trạng thái chuyển trang.");
+        }
+
+        if (shouldPlay) {
+            try {
+                await music.play();
+            } catch (error) {
+                console.log("Trình duyệt không cho phép tự phát nhạc.");
+            }
+        }
+
+        updateButton();
+    });
+})();
 </script>
 
     
