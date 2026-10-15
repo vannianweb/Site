@@ -1383,28 +1383,40 @@ Uy Tín Tạo Niềm Tin!`;
         window.location.href = telegramURL;
     });
 
-    // 2. Xử lý nút Bật/Tắt nhạc (An toàn 100% không bị trình duyệt chặn)
+    // 2. Xử lý phát nhạc tự động khi bấm nút "Khám phá SHOP" hoặc nút bật nhạc
     const music = document.getElementById("bgMusic");
     const btn = document.getElementById("musicBtn");
     
-    // Đảm bảo bật sẵn âm lượng cho audio
-    music.volume = 1.0;
+    // Tìm nút "Khám phá SHOP" dựa vào thẻ a hoặc class của nó ở phần trên web
+    // Giả sử nút cuộn xuống phần dịch vụ/shop có href="#bang-gia" hoặc class chứa link trượt
+    const exploreBtn = document.querySelector('a[href="#bang-gia"]') || document.querySelector('.btn-primary');
 
-    btn.addEventListener("click", function () {
-        if (music.paused) {
+    if (exploreBtn) {
+        exploreBtn.addEventListener("click", function () {
+            music.volume = 1.0;
             music.play().then(() => {
-                btn.textContent = "🎵 TẮT NHẠC";
-            }).catch(error => {
-                console.log("Lỗi phát nhạc:", error);
-                alert("Không thể phát nhạc. Hãy kiểm tra lại đường dẫn file nhạc hoặc kết nối mạng!");
-            });
-        } else {
-            music.pause();
-            btn.textContent = "🎵 BẬT NHẠC";
-        }
-    });
+                if(btn) btn.textContent = "🎵 TẮT NHẠC";
+            }).catch(e => console.log("Không phát được nhạc:", e));
+        });
+    }
+
+    // 3. Xử lý nút bật/tắt nhạc ở góc màn hình
+    if (btn) {
+        btn.addEventListener("click", function () {
+            if (music.paused) {
+                music.play().then(() => {
+                    btn.textContent = "🎵 TẮT NHẠC";
+                }).catch(error => {
+                    alert("Hãy bấm vào nút Khám phá SHOP trước để bật nhạc nhé!");
+                });
+            } else {
+                music.pause();
+                btn.textContent = "🎵 BẬT NHẠC";
+            }
+        });
+    }
 </script>
 
-
+    
     </body>
 </html>
