@@ -1388,29 +1388,27 @@ Uy Tín Tạo Niềm Tin!`;
         window.location.href = telegramURL;
     });
 
-    // 2. Xử lý phát nhạc tự động khi bấm nút "Khám phá SHOP"
+    // 2. Xử lý tự động phát nhạc khi chuyển từ home.html sang main.html
     const music = document.getElementById("bgMusic");
     const btn = document.getElementById("musicBtn");
     
-    const exploreBtn = document.querySelector('a[href="#bang-gia"]') || document.querySelector('.btn-primary');
-
-    if (exploreBtn) {
-        exploreBtn.addEventListener("click", function () {
-            music.volume = 1.0;
-            music.play().then(() => {
-                if(btn) btn.textContent = "🎵 TẮT NHẠC";
-            }).catch(e => console.log("Không phát được nhạc:", e));
-        });
+    // Kiểm tra xem trên URL có chữ ?play=true hay không
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.get('play') === 'true') {
+        music.volume = 1.0;
+        music.play().then(() => {
+            if(btn) btn.textContent = "🎵 TẮT NHẠC";
+        }).catch(e => console.log("Trình duyệt chặn tự động phát:", e));
     }
 
-    // 3. Xử lý nút bật/tắt nhạc ở góc màn hình
+    // 3. Xử lý nút bật/tắt nhạc thủ công ở góc màn hình
     if (btn) {
         btn.addEventListener("click", function () {
             if (music.paused) {
                 music.play().then(() => {
                     btn.textContent = "🎵 TẮT NHẠC";
                 }).catch(error => {
-                    alert("Hãy bấm vào nút Khám phá SHOP trước để bật nhạc nhé!");
+                    alert("Không thể phát nhạc. Hãy kiểm tra lại file nhạc!");
                 });
             } else {
                 music.pause();
