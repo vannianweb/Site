@@ -1370,34 +1370,29 @@ Uy Tín Tạo Niềm Tin!`;
 </section>
   
 <!-- VANNIANWEB MUSIC PLAYER -->
-<!-- VANNIANWEB MUSIC PLAYER -->
 <audio id="bgMusic" loop playsinline preload="auto">
     <source
         src="https://vannianweb.github.io/Site/music.mp3"
         type="audio/mpeg">
 </audio>
 
-<button id="musicBtn" type="button">
+<button id="musicBtn"
+    type="button"
+    style="
+        position:fixed;
+        bottom:20px;
+        right:20px;
+        z-index:99999;
+        padding:14px 20px;
+        background:#168cff;
+        color:white;
+        border:0;
+        border-radius:30px;
+        font-weight:bold;
+        cursor:pointer;
+    ">
     🎵 BẬT NHẠC
 </button>
-
-<style>
-#musicBtn {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    z-index: 99999;
-    padding: 14px 20px;
-    background: #168cff;
-    color: white;
-    border: none;
-    border-radius: 30px;
-    font-size: 15px;
-    font-weight: bold;
-    cursor: pointer;
-    box-shadow: 0 5px 25px #168cff55;
-}
-</style>
 
 <script>
 (function () {
@@ -1414,26 +1409,25 @@ Uy Tín Tạo Niềm Tin!`;
 
     let savedPosition = 0;
     let shouldTryPlay = false;
-    let positionRestored = false;
+    let restored = false;
 
-    // Đọc trạng thái và vị trí nghe trước đó
+    // Đọc vị trí và trạng thái nghe đã lưu
     try {
-        savedPosition = parseFloat(
-            localStorage.getItem(POSITION_KEY) || "0"
+        savedPosition = Number(
+            localStorage.getItem(POSITION_KEY) || 0
         );
 
-        const requestedFromHome =
+        const fromHome =
             sessionStorage.getItem(NAV_KEY) === "true";
 
-        const wantedPreviously =
+        const previouslyPlaying =
             localStorage.getItem(PLAY_KEY) === "true";
 
-        shouldTryPlay = requestedFromHome || wantedPreviously;
+        shouldTryPlay = fromHome || previouslyPlaying;
 
-        // Đã đọc yêu cầu chuyển trang
         sessionStorage.removeItem(NAV_KEY);
     } catch (error) {
-        console.log("Không đọc được dữ liệu nhạc đã lưu.");
+        console.log("Không đọc được trạng thái nhạc.");
     }
 
     function updateButton() {
@@ -1442,23 +1436,25 @@ Uy Tín Tạo Niềm Tin!`;
             : "🎵 TẮT NHẠC";
     }
 
-    // Khôi phục vị trí nghe khi trình duyệt tải được metadata
-    music.addEventListener("loadedmetadata", function () {
-        if (positionRestored) return;
+    // Khôi phục vị trí nghe cũ
+    function restorePosition() {
+        if (restored || !Number.isFinite(music.duration)) {
+            return;
+        }
 
-        positionRestored = true;
+        restored = true;
 
         if (
-            Number.isFinite(savedPosition) &&
             savedPosition > 0 &&
-            Number.isFinite(music.duration) &&
             savedPosition < music.duration
         ) {
             music.currentTime = savedPosition;
         }
-    });
+    }
 
-    // Lưu vị trí nghe gần nhất
+    music.addEventListener("loadedmetadata", restorePosition);
+
+    // Lưu vị trí đang nghe
     function savePosition() {
         if (!Number.isFinite(music.currentTime)) return;
 
@@ -1467,36 +1463,70 @@ Uy Tín Tạo Niềm Tin!`;
                 POSITION_KEY,
                 String(music.currentTime)
             );
-        } catch (error) {
-            console.log("Không lưu được vị trí nghe.");
-        }
+        } catch (error) {}
     }
 
     music.addEventListener("timeupdate", savePosition);
     music.addEventListener("pause", savePosition);
-    music.addEventListener("ended", function () {
-        try {
-            localStorage.setItem(POSITION_KEY, "0");
-        } catch (error) {}
-
-        updateButton();
-    });
+    window.addEventListener("pagehide", savePosition);
 
     music.addEventListener("play", updateButton);
     music.addEventListener("pause", updateButton);
 
-    // Nút bật/tắt nhạc thủ công
+    // Thử tự phát theo cơ chế code cũ
+    window.addEventListener("load", async function () {
+        // Chờ metadata để khôi phục vị trí trước khi phát
+        if (music.readyState < 1) {
+            await new Promise(function (resolve) {
+                music.addEventListener(
+                    "loadedmetadata",
+                    resolve,
+                    { once: true }
+                );
+
+                music.addEventListener(
+                    "error",
+                    resolve,
+                    { once: true }
+                );
+            });
+        }
+
+        restorePosition();
+
+        try {
+            // Giữ cơ chế tự phát của code cũ
+            music.muted = true;
+            await music.play();
+
+            // Chỉ lưu trạng thái nếu phát thành công
+            localStorage.setItem(PLAY_KEY, "true");
+
+            // Thử bật tiếng trở lại
+            music.muted = false;
+        } catch (error) {
+            music.pause();
+            music.muted = false;
+
+            console.log("Không thể tự phát nhạc:", error);
+        }
+
+        updateButton();
+    });
+
+    // Bật hoặc tắt bằng nút
     btn.addEventListener("click", async function () {
         if (music.paused) {
             try {
+                restorePosition();
+
+                music.muted = false;
                 await music.play();
 
-                try {
-                    localStorage.setItem(PLAY_KEY, "true");
-                } catch (error) {}
+                localStorage.setItem(PLAY_KEY, "true");
             } catch (error) {
                 alert(
-                    "Chưa phát được nhạc. Hãy kiểm tra kết nối mạng hoặc file music.mp3."
+                    "Không phát được nhạc. Hãy kiểm tra kết nối mạng và file music.mp3."
                 );
             }
         } else {
@@ -1509,50 +1539,6 @@ Uy Tín Tạo Niềm Tin!`;
 
         updateButton();
     });
-
-    // Thử tự phát khi mở main.html
-    async function tryAutoPlay() {
-        if (!shouldTryPlay) {
-            updateButton();
-            return;
-        }
-
-        try {
-            await music.play();
-
-            try {
-                localStorage.setItem(PLAY_KEY, "true");
-            } catch (error) {}
-        } catch (error) {
-            console.log(
-                "Trình duyệt chặn tự phát. Hãy bấm nút BẬT NHẠC."
-            );
-        }
-
-        updateButton();
-    }
-
-    if (music.readyState >= 1) {
-        if (
-            Number.isFinite(savedPosition) &&
-            savedPosition > 0 &&
-            savedPosition < music.duration
-        ) {
-            music.currentTime = savedPosition;
-            positionRestored = true;
-        }
-
-        tryAutoPlay();
-    } else {
-        music.addEventListener(
-            "loadedmetadata",
-            tryAutoPlay,
-            { once: true }
-        );
-    }
-
-    // Lưu vị trí khi rời trang
-    window.addEventListener("pagehide", savePosition);
 
     updateButton();
 })();
