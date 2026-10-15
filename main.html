@@ -532,7 +532,7 @@
 
                     <div class="info">
                         <strong>🏷️ Thương hiệu</strong>
-                        <p> (VANNIANWEB)</p>
+                        <p> (VANNIANSHOP)</p>
                     </div>
 
                     <div class="info">
@@ -543,7 +543,7 @@
                     <div class="info">
                         <strong>🚀 Sứ mệnh</strong>
                         <p>
-                            Đặt Khách Hàng Làm Chủ Đạo
+                            Đặt Khách Hàng Làm Thượng Đế
                         
                         </p>
                     </div>
@@ -616,7 +616,7 @@
                     <h3>Tận Tâm</h3>
 
                     <p>
-                        Luôn Xử Lý Yêu Cầu Của Ae 24/7
+                        Có hướng dẫn cách cài sau khi mua
 
                 </div>
 
@@ -638,92 +638,325 @@
 
     </section>
 
+<!-- VANNIANWEB - LOCKET PREMIUM STORE -->
+<section id="locket-store">
 
-    <!-- DỊCH VỤ -->
+<style>
+#locket-store {
+    --gold: #e8c54b;
+    --gold-light: #f8e8a4;
 
-    <section id="dich-vu">
+    padding: 55px 16px;
+    margin: 35px auto;
+    max-width: 1100px;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    background:
+        radial-gradient(ellipse at top, #211c0e, transparent 65%),
+        #090a0e;
+    border: 1px solid #302919;
+    border-radius: 24px;
+}
 
-        <div class="container">
+#locket-store * {
+    box-sizing: border-box;
+}
 
-            <div class="section-title">
+#locket-store .store-header {
+    text-align: center;
+    margin-bottom: 35px;
+}
 
-                <small>SERVICES</small>
+#locket-store .store-badge {
+    display: inline-block;
+    padding: 10px 17px;
+    background: #282214;
+    color: var(--gold);
+    border-radius: 30px;
+    font-size: 11px;
+    letter-spacing: 2px;
+}
 
-                <h2>🎮 TÔI CÓ THỂ GIÚP GÌ CHO ANH EM?</h2>
+#locket-store .store-header h2 {
+    margin: 23px 0 14px;
+    font-size: clamp(30px, 6vw, 46px);
+}
 
-                <p>
-                    Anh em đang tìm kiếm điều gì?
-                    Hãy để VANNIAN hỗ trợ.
-                </p>
+#locket-store .store-header h2 span {
+    color: var(--gold);
+}
 
-            </div>
+#locket-store .store-header p {
+    color: #aaa;
+    font-size: 14px;
+    line-height: 1.8;
+}
 
+#locket-store .store-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+}
 
-            <div class="service-list">
+#locket-store .store-card {
+    display: flex;
+    flex-direction: column;
+    padding: 24px 19px;
+    background: linear-gradient(145deg, #171717, #0c0c0e);
+    border: 1px solid #373022;
+    border-radius: 20px;
+    transition: .25s;
+}
 
-                <div class="service">
+#locket-store .store-card:hover {
+    border-color: var(--gold);
+    transform: translateY(-4px);
+}
 
-                    <div class="number">01</div>
+#locket-store .store-card.featured {
+    border-color: #a98b36;
+}
 
-                    <div>
-                       <h3>Luôn luôn hỗ trợ</h3>
-                       
-                        <p>
-                            Admin luôn hỗ trợ các ae
-                        </p>
+#locket-store .store-tag {
+    color: var(--gold);
+    background: #292315;
+    padding: 9px 11px;
+    border-radius: 30px;
+    font-size: 10px;
+    letter-spacing: 1px;
+    align-self: flex-start;
+}
 
-                    </div>
+#locket-store .store-card h3 {
+    font-size: 23px;
+    margin: 23px 0 10px;
+}
 
-                </div>
+#locket-store .store-description {
+    color: #aaa;
+    font-size: 13px;
+    line-height: 1.7;
+    min-height: 44px;
+}
 
+#locket-store .store-price {
+    margin: 25px 0 8px;
+    color: var(--gold-light);
+    font-size: clamp(25px, 3vw, 34px);
+    font-weight: 800;
+    white-space: nowrap;
+}
 
-                <div class="service">
+#locket-store .store-price small {
+    color: #aaa;
+    font-size: 12px;
+    font-weight: normal;
+}
 
-                    <div class="number">02</div>
+#locket-store .store-warranty {
+    margin: 12px 0 18px;
+    color: #ecd47a;
+    font-size: 12px;
+}
 
-                    <div>
-                       <h3>Ở Đây Có Gì Nào?</h3p>
-                
+#locket-store .store-features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 25px;
+}
 
-                        <p>
-                            Các công cụ hỗ trợ chơi game,
-                            Giá mềm ib qua tele bên dưới
-                        </p>
+#locket-store .store-features li {
+    margin: 13px 0;
+    color: #ddd;
+    font-size: 13px;
+    line-height: 1.6;
+}
 
-                    </div>
+#locket-store .store-features li::before {
+    content: "✓";
+    color: var(--gold);
+    margin-right: 9px;
+    font-weight: bold;
+}
 
-                </div>
+#locket-store .store-buy {
+    display: block;
+    margin-top: auto;
+    padding: 15px 8px;
+    border: 1px solid #514326;
+    border-radius: 11px;
+    text-align: center;
+    color: var(--gold-light);
+    background: #1c190f;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: bold;
+    transition: .2s;
+}
 
+#locket-store .store-buy:hover {
+    background: var(--gold);
+    color: #111;
+}
 
-                <div class="service">
+#locket-store .store-note {
+    margin-top: 25px;
+    color: #999;
+    font-size: 12px;
+    line-height: 1.8;
+}
 
-                    <div class="number">03</div>
+@media (max-width: 760px) {
+    #locket-store .store-grid {
+        grid-template-columns: 1fr;
+        max-width: 480px;
+        margin: auto;
+    }
 
-                    <div>
+    #locket-store .store-card {
+        padding: 25px 21px;
+    }
 
-                        <h3>🔧 Hỗ trợ kỹ thuật</h3>
+    #locket-store .store-description {
+        min-height: auto;
+    }
 
-                        <p>
-                            Hỗ trợ tải game mod và các vấn đề liên quan
-                        </p>
+    #locket-store .store-price {
+        font-size: 35px;
+    }
+}
+</style>
 
-                    </div>
+<div class="store-header">
+    <div class="store-badge">✦ VANNIAN PREMIUM ✦</div>
 
-                </div>
+    <h2>LOCKET <span>PREMIUM</span></h2>
 
-            </div>
+    <p>
+        Lựa chọn gói dịch vụ phù hợp với bạn.<br>
+        Liên hệ để được tư vấn trước khi đặt mua.
+    </p>
+</div>
 
+<div class="store-grid">
+
+    <!-- GÓI 69K -->
+    <article class="store-card">
+        <div class="store-tag">✦ BASIC STANDARD</div>
+
+        <h3>Basic Standard</h3>
+
+        <p class="store-description">
+            Gói dịch vụ thời hạn một năm.
+        </p>
+
+        <div class="store-price">
+            69.000đ <small>/ năm</small>
         </div>
 
-    </section>
+        <div class="store-warranty">
+            ✦ Bảo hành 15 ngày
+        </div>
 
+        <ul class="store-features">
+            <li>Thời hạn dịch vụ 1 năm</li>
+            <li>Bảo hành 15 ngày</li>
+            <li>Hỗ trợ khách hàng</li>
+            <li>Hướng dẫn sử dụng</li>
+        </ul>
+
+        <a class="store-buy"
+           href="https://t.me/vanNianz"
+           target="_blank"
+           rel="noopener noreferrer">
+            ĐẶT MUA NGAY →
+        </a>
+    </article>
+
+    <!-- GÓI 120K -->
+    <article class="store-card featured">
+        <div class="store-tag">✦ PREMIUM PLUS</div>
+
+        <h3>Premium Plus</h3>
+
+        <p class="store-description">
+            Gói dịch vụ với thời gian bảo hành dài hơn.
+        </p>
+
+        <div class="store-price">
+            120.000đ <small>/ năm</small>
+        </div>
+
+        <div class="store-warranty">
+            ✦ Bảo hành 6 tháng
+        </div>
+
+        <ul class="store-features">
+            <li>Thời hạn dịch vụ 1 năm</li>
+            <li>Bảo hành 6 tháng</li>
+            <li>Hỗ trợ khách hàng</li>
+            <li>Hướng dẫn sử dụng</li>
+        </ul>
+
+        <a class="store-buy"
+           href="https://t.me/vanNianz"
+           target="_blank"
+           rel="noopener noreferrer">
+            ĐẶT MUA NGAY →
+        </a>
+    </article>
+
+    <!-- GÓI 199K -->
+    <article class="store-card">
+        <div class="store-tag">✦ PREMIUM VIP</div>
+
+        <h3>Premium VIP</h3>
+
+        <p class="store-description">
+            Gói dịch vụ với chính sách bảo hành vĩnh viễn.
+        </p>
+
+        <div class="store-price">
+            199.000đ <small>/ năm</small>
+        </div>
+
+        <div class="store-warranty">
+            ✦ Bảo hành vĩnh viễn
+        </div>
+
+        <ul class="store-features">
+            <li>Thời hạn dịch vụ 1 năm</li>
+            <li>Bảo hành vĩnh viễn</li>
+            <li>Hỗ trợ khách hàng</li>
+            <li>Hướng dẫn sử dụng</li>
+        </ul>
+
+        <a class="store-buy"
+           href="https://t.me/vanNianz"
+           target="_blank"
+           rel="noopener noreferrer">
+            ĐẶT MUA NGAY →
+        </a>
+    </article>
+
+</div>
+
+<div class="store-note">
+    * Vui lòng liên hệ để xác nhận quyền lợi và điều kiện bảo hành
+    trước khi thanh toán. Thời hạn sử dụng và thời hạn bảo hành
+    là hai điều khoản riêng biệt.
+</div>
+
+</section>
+<!-- END LOCKET PREMIUM STORE -->
+  
 
 <!-- CTA -->
 <!-- ===== VANNIANWEB - GỬI YÊU CẦU ===== -->
 
 <div class="vannian-request">
 
-    <h2>🔥 GỬI YÊU CẦU CHO VANNIAN</h2>
+    <h2>🔥 Bạn Muốn Mua Mod Chọn Và Gửi Yêu Cầu!</h2>
 
     <p>
         Chọn tựa game, thiết bị và nhập nội dung bạn cần hỗ trợ.
