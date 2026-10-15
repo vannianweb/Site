@@ -193,9 +193,10 @@
 
 
         <!-- BẤM VÀO ĐÂY → TRANG CHÍNH -->
-
-       <a href="main.html" id="exploreShop">
-  Khám Phá SHOP
+<a href="main.html"
+   class="shop-button"
+   id="exploreShop">
+    Khám Phá SHOP →
 </a>
 
         <div class="location">
@@ -204,6 +205,16 @@
 
     </main>
 
+<script>
+document.getElementById("exploreShop").addEventListener("click", function () {
+    try {
+        sessionStorage.setItem("playMusicOnMain", "true");
+    } catch (error) {
+        console.log("Không thể lưu trạng thái chuyển trang.");
+    }
+});
+</script>
+    
 </body>
 
 </html>
