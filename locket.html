@@ -1,1 +1,581 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<meta name="theme-color" content="#08090d">
+<meta name="description" content="Locket Premium - Các gói dịch vụ tại VANNIANWEB">
+
+<title>Locket Premium | VANNIANWEB</title>
+
+<style>
+:root {
+    --bg: #08090d;
+    --card: #111113;
+    --gold: #e8c54b;
+    --gold-light: #f8e8a4;
+    --text: #f5f5f5;
+    --muted: #a5a5ad;
+    --border: #302a1d;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    background:
+        radial-gradient(ellipse at top, #19170f 0%, transparent 48%),
+        var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+                 Arial, sans-serif;
+    overflow-x: hidden;
+}
+
+/* HEADER */
+
+header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    text-align: center;
+    padding: 20px 15px;
+    background: rgba(8, 9, 13, 0.94);
+    backdrop-filter: blur(18px);
+    border-bottom: 1px solid rgba(232, 197, 75, 0.18);
+}
+
+.logo {
+    color: var(--gold);
+    font-size: 23px;
+    font-weight: 900;
+    letter-spacing: 5px;
+}
+
+.header-subtitle {
+    color: #999;
+    font-size: 10px;
+    letter-spacing: 3px;
+    margin-top: 8px;
+}
+
+/* MAIN */
+
+.container {
+    width: 100%;
+    max-width: 1100px;
+    margin: auto;
+    padding: 25px 18px 55px;
+}
+
+/* HERO */
+
+.hero {
+    position: relative;
+    text-align: center;
+    padding: 45px 10px 38px;
+}
+
+.badge {
+    display: inline-block;
+    padding: 10px 17px;
+    color: var(--gold);
+    background: rgba(232, 197, 75, 0.09);
+    border: 1px solid rgba(232, 197, 75, 0.2);
+    border-radius: 50px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.hero h1 {
+    margin-top: 25px;
+    font-size: clamp(31px, 7vw, 53px);
+    font-weight: 900;
+    letter-spacing: -1.5px;
+    line-height: 1.2;
+}
+
+.hero h1 span {
+    display: block;
+    color: var(--gold);
+    margin-top: 5px;
+}
+
+.hero-description {
+    max-width: 560px;
+    margin: 20px auto 0;
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.9;
+}
+
+/* DIVIDER */
+
+.section-title {
+    margin: 12px 0 22px;
+    text-align: center;
+    color: var(--gold-light);
+    font-size: 13px;
+    letter-spacing: 3px;
+}
+
+/* PRODUCTS */
+
+.products {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+    align-items: stretch;
+}
+
+.card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 25px 20px;
+    overflow: hidden;
+    background: linear-gradient(145deg, #151515, #0c0c0e);
+    border: 1px solid #292929;
+    border-radius: 23px;
+    transition: transform 0.3s ease, border-color 0.3s ease,
+                box-shadow 0.3s ease;
+}
+
+.card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 15%;
+    width: 70%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    opacity: 0.5;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(232, 197, 75, 0.65);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+}
+
+.card.featured {
+    border-color: rgba(232, 197, 75, 0.5);
+    background: linear-gradient(150deg, #1c1910, #101010 55%);
+}
+
+.tag {
+    align-self: flex-start;
+    padding: 9px 12px;
+    border-radius: 30px;
+    background: rgba(232, 197, 75, 0.1);
+    color: var(--gold);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.1px;
+}
+
+.card h2 {
+    margin-top: 25px;
+    font-size: 25px;
+    line-height: 1.3;
+}
+
+.description {
+    min-height: 43px;
+    margin-top: 10px;
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+/* PRICE */
+
+.price {
+    margin: 25px 0 8px;
+    color: var(--gold-light);
+    font-size: clamp(27px, 3vw, 36px);
+    font-weight: 850;
+    letter-spacing: -1px;
+    white-space: nowrap;
+}
+
+.price-period {
+    color: #aaa;
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0;
+}
+
+.warranty {
+    display: inline-flex;
+    align-self: flex-start;
+    align-items: center;
+    gap: 7px;
+    margin: 12px 0 22px;
+    padding: 8px 11px;
+    color: #e8d58b;
+    background: rgba(232, 197, 75, 0.07);
+    border: 1px solid rgba(232, 197, 75, 0.15);
+    border-radius: 8px;
+    font-size: 12px;
+}
+
+.warranty-icon {
+    color: var(--gold);
+}
+
+/* FEATURES */
+
+.features {
+    list-style: none;
+    margin-bottom: 25px;
+}
+
+.features li {
+    display: flex;
+    align-items: flex-start;
+    gap: 9px;
+    margin: 14px 0;
+    color: #d0d0d5;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.features li::before {
+    content: "✓";
+    flex-shrink: 0;
+    color: var(--gold);
+    font-weight: 900;
+}
+
+/* BUTTON */
+
+.buy {
+    display: block;
+    width: 100%;
+    margin-top: auto;
+    padding: 15px 10px;
+    border: 1px solid #4b4022;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #201b10, #15130e);
+    color: var(--gold-light);
+    text-align: center;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    transition: 0.25s;
+}
+
+.buy:hover {
+    background: linear-gradient(100deg, #d9b53c, #f6e6a0);
+    color: #111;
+    border-color: var(--gold);
+}
+
+/* INFORMATION */
+
+.notice {
+    margin-top: 28px;
+    padding: 20px;
+    border: 1px solid #292929;
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.018);
+    color: #999;
+    font-size: 12px;
+    line-height: 1.9;
+}
+
+.notice strong {
+    display: block;
+    margin-bottom: 7px;
+    color: var(--gold-light);
+    font-size: 13px;
+}
+
+/* BACK BUTTON */
+
+.back-home {
+    display: block;
+    width: fit-content;
+    margin: 30px auto 0;
+    padding: 13px 20px;
+    border: 1px solid #333;
+    border-radius: 10px;
+    color: #ddd;
+    text-decoration: none;
+    text-align: center;
+    font-size: 13px;
+    transition: 0.2s;
+}
+
+.back-home:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+}
+
+/* FOOTER */
+
+footer {
+    padding: 27px 15px;
+    text-align: center;
+    border-top: 1px solid #222;
+    color: #777;
+    font-size: 11px;
+    line-height: 2;
+}
+
+footer span {
+    color: var(--gold);
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+/* MOBILE */
+
+@media (max-width: 850px) {
+    .products {
+        grid-template-columns: 1fr;
+        max-width: 480px;
+        margin: auto;
+    }
+
+    .card {
+        padding: 27px 23px;
+    }
+
+    .card h2 {
+        font-size: 27px;
+    }
+
+    .price {
+        font-size: 36px;
+    }
+
+    .description {
+        min-height: auto;
+    }
+}
+
+@media (max-width: 380px) {
+    .container {
+        padding-left: 12px;
+        padding-right: 12px;
+    }
+
+    .hero h1 {
+        font-size: 31px;
+    }
+
+    .card {
+        padding: 22px 17px;
+    }
+
+    .price {
+        font-size: 31px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        transition: none !important;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<header>
+    <div class="logo">VANNIAN</div>
+    <div class="header-subtitle">UY TÍN TẠO NIỀM TIN</div>
+</header>
+
+<main class="container">
+
+    <!-- INTRO -->
+    <section class="hero">
+        <div class="badge">✦ PREMIUM COLLECTION ✦</div>
+
+        <h1>
+            LOCKET
+            <span>PREMIUM</span>
+        </h1>
+
+        <p class="hero-description">
+            Khám phá các gói dịch vụ Locket Premium tại VANNIANWEB.
+            Lựa chọn gói phù hợp và liên hệ để được tư vấn trước khi đặt mua.
+        </p>
+    </section>
+
+    <h3 class="section-title">BẢNG GIÁ DỊCH VỤ</h3>
+
+    <!-- PRODUCT CARDS -->
+    <section class="products">
+
+        <!-- PACKAGE 1 -->
+        <article class="card">
+
+            <div class="tag">✦ BASIC STANDARD</div>
+
+            <h2>Basic Standard</h2>
+
+            <p class="description">
+                Gói dịch vụ thời hạn một năm.
+            </p>
+
+            <div class="price">
+                69.000đ
+                <span class="price-period">/ năm</span>
+            </div>
+
+            <div class="warranty">
+                <span class="warranty-icon">✦</span>
+                Bảo hành 15 ngày
+            </div>
+
+            <ul class="features">
+                <li>Thời hạn dịch vụ 1 năm</li>
+                <li>Chính sách bảo hành 15 ngày</li>
+                <li>Hỗ trợ khách hàng</li>
+                <li>Hướng dẫn sử dụng</li>
+            </ul>
+
+            <a class="buy"
+               href="https://t.me/vanNianz"
+               target="_blank"
+               rel="noopener noreferrer">
+                ĐẶT MUA NGAY →
+            </a>
+
+        </article>
+
+
+        <!-- PACKAGE 2 -->
+        <article class="card featured">
+
+            <div class="tag">✦ PREMIUM PLUS</div>
+
+            <h2>Premium Plus</h2>
+
+            <p class="description">
+                Gói dịch vụ với thời gian bảo hành dài hơn.
+            </p>
+
+            <div class="price">
+                120.000đ
+                <span class="price-period">/ năm</span>
+            </div>
+
+            <div class="warranty">
+                <span class="warranty-icon">✦</span>
+                Bảo hành 6 tháng
+            </div>
+
+            <ul class="features">
+                <li>Thời hạn dịch vụ 1 năm</li>
+                <li>Chính sách bảo hành 6 tháng</li>
+                <li>Hỗ trợ khách hàng</li>
+                <li>Hướng dẫn sử dụng</li>
+            </ul>
+
+            <a class="buy"
+               href="https://t.me/vanNianz"
+               target="_blank"
+               rel="noopener noreferrer">
+                ĐẶT MUA NGAY →
+            </a>
+
+        </article>
+
+
+        <!-- PACKAGE 3 -->
+        <article class="card">
+
+            <div class="tag">✦ PREMIUM VIP</div>
+
+            <h2>Premium VIP</h2>
+
+            <p class="description">
+                Gói dịch vụ với chính sách bảo hành vĩnh viễn.
+            </p>
+
+            <div class="price">
+                199.000đ
+                <span class="price-period">/ năm</span>
+            </div>
+
+            <div class="warranty">
+                <span class="warranty-icon">✦</span>
+                Bảo hành vĩnh viễn
+            </div>
+
+            <ul class="features">
+                <li>Thời hạn dịch vụ 1 năm</li>
+                <li>Chính sách bảo hành vĩnh viễn</li>
+                <li>Hỗ trợ khách hàng</li>
+                <li>Hướng dẫn sử dụng</li>
+            </ul>
+
+            <a class="buy"
+               href="https://t.me/vanNianz"
+               target="_blank"
+               rel="noopener noreferrer">
+                ĐẶT MUA NGAY →
+            </a>
+
+        </article>
+
+    </section>
+
+    <!-- CUSTOMER NOTICE -->
+    <section class="notice">
+        <strong>✦ LƯU Ý TRƯỚC KHI ĐẶT MUA</strong>
+
+        Vui lòng liên hệ để xác nhận thông tin gói dịch vụ,
+        điều kiện sử dụng và chính sách bảo hành trước khi thanh toán.
+
+        <br><br>
+
+        Thời hạn sử dụng và thời hạn bảo hành là hai điều khoản riêng biệt.
+        Gói 199.000đ hiện được niêm yết với thời hạn dịch vụ một năm
+        và chính sách bảo hành vĩnh viễn theo thông tin bạn cung cấp.
+        Hãy công bố rõ điều kiện bảo hành áp dụng cho từng gói.
+
+    </section>
+
+    <!-- HOME LINK -->
+    <a class="back-home" href="main.html">
+        ← QUAY VỀ VANNIANWEB
+    </a>
+
+</main>
+
+<!-- FOOTER -->
+<footer>
+    <span>VANNIANWEB</span>
+    <br>
+    UY TÍN TẠO NIỀM TIN
+    <br>
+    © 2026 VANNIAN. All rights reserved.
+</footer>
+
+</body>
+</html>
